@@ -1,0 +1,14 @@
+COMO GRAVAR OS VÍDEOS DOS GOLPES
+
+Nome do arquivo = golpe:  espera, corrida, split, forehand, backhand2 (duas mãos), backhand1 (uma mão),
+                          slice, voleio_fh, voleio_bh, smash, saque     (ex.: forehand.mp4, saque_2.mp4)
+
+• Corpo inteiro no quadro o tempo todo (da cabeça aos pés), celular PARADO (tripé ou apoiado).
+• Câmera de lado ou na diagonal da frente, a uns 4–6 m, na altura da cintura.
+• Boa luz, roupa que contraste com o fundo, ninguém passando atrás.
+• Um golpe por vídeo: comece na posição de espera, faça o golpe completo, volte à espera.
+• 30 ou 60 fps. Com bola de verdade fica mais natural, mas sem bola também funciona.
+• Pode mandar 2–3 vídeos do mesmo golpe (forehand_1, forehand_2…): fico com o melhor.
+
+Depois: coloque os vídeos nesta pasta e dê dois cliques em PROCESSAR_VIDEOS.bat
+(ou mande para o Claude no chat que ele roda tudo).

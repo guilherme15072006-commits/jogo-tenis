@@ -1,0 +1,36 @@
+{
+  "clipes": [
+    {
+      "nome": "backhand1",
+      "contato": 0.6
+    },
+    {
+      "nome": "slice",
+      "contato": 0.55
+    },
+    {
+      "nome": "saque",
+      "contato": 1.25
+    },
+    {
+      "nome": "backhand2",
+      "contato": 0.66
+    },
+    {
+      "nome": "voleio_fh",
+      "contato": 0.3
+    },
+    {
+      "nome": "voleio_bh",
+      "contato": 0.3
+    },
+    {
+      "nome": "smash",
+      "contato": 0.9
+    },
+    {
+      "nome": "forehand",
+      "contato": 0.869
+    }
+  ]
+}

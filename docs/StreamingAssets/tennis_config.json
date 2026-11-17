@@ -1,0 +1,150 @@
+{
+    "ball": {
+        "mass": 0.0577,
+        "radius": 0.0335,
+        "gravity": 9.81,
+        "airDensity": 1.21,
+        "dragCoefficient": 0.55,
+        "spinDecayPerSecond": 0.035,
+        "stepHz": 240.0,
+        "maxFlightSeconds": 6.0,
+        "shellInertiaFactor": 0.6667
+    },
+    "surfaces": [
+        {
+            "name": "clay",
+            "restitution": 0.8,
+            "friction": 0.62,
+            "spinRetention": 0.85
+        },
+        {
+            "name": "hard",
+            "restitution": 0.82,
+            "friction": 0.5,
+            "spinRetention": 0.88
+        },
+        {
+            "name": "grass",
+            "restitution": 0.74,
+            "friction": 0.36,
+            "spinRetention": 0.9
+        }
+    ],
+    "surface": "clay",
+    "net": {
+        "centreHeight": 0.914,
+        "postHeight": 1.07,
+        "postDistanceFromCentre": 6.4,
+        "tapeThickness": 0.06,
+        "netBodyDamping": 0.12,
+        "cordSpeedKeep": 0.45,
+        "cordUpwardBias": 0.35
+    },
+    "gesture": {
+        "minLength": 0.035,
+        "tapMaxLength": 0.03,
+        "tapMaxDuration": 0.2,
+        "minDuration": 0.03,
+        "maxDuration": 0.9,
+        "minPeakSpeed": 0.35,
+        "minStraightness": 0.55,
+        "duplicateWindow": 0.18,
+        "cooldownAfterShot": 0.35,
+        "shortGestureLength": 0.11,
+        "verticalHalfWidth": 22.0,
+        "horizontalHalfWidth": 22.0,
+        "joystickZoneMaxX": 0.45
+    },
+    "power": {
+        "fingerSpeedForFullSwing": 3.2,
+        "amplitudeForFullSwing": 0.35,
+        "speedWeight": 0.65,
+        "amplitudeWeight": 0.35,
+        "minRacketSpeed": 8.0,
+        "maxRacketSpeed": 42.0,
+        "prepMinFactor": 0.7,
+        "balanceMinFactor": 0.6,
+        "maxGroundstrokeSpeed": 46.0,
+        "maxVolleySpeed": 36.0,
+        "maxSmashSpeed": 55.0,
+        "maxServeSpeed": 69.0,
+        "maxLobSpeed": 24.0,
+        "maxDropShotSpeed": 14.0
+    },
+    "aim": {
+        "deepTargetFromBaseline": 1.6,
+        "shortTargetFromNet": 3.4,
+        "lateralTargetFromSideline": 1.1,
+        "lateralFullDeflection": 0.2,
+        "baseErrorMetres": 0.45,
+        "powerErrorGrowth": 1.6,
+        "showIndicator": true
+    },
+    "timing": {
+        "baseWindow": 0.11,
+        "perfectFraction": 0.25,
+        "veryGoodFraction": 0.5,
+        "lateFraction": 2.0,
+        "referenceBallSpeed": 22.0,
+        "awkwardHeightLow": 0.45,
+        "awkwardHeightHigh": 1.55,
+        "reachComfort": 0.9,
+        "maxReach": 1.85,
+        "runSpeedPenalty": 0.05,
+        "smashWindowFactor": 0.8,
+        "volleyWindowFactor": 0.85,
+        "dropShotWindowFactor": 0.9,
+        "idealContactHeight": 0.95
+    },
+    "shots": {
+        "volleyMaxDistanceFromNet": 5.0,
+        "smashMinBallHeight": 2.35,
+        "dropShotMaxIncomingSpeed": 26.0,
+        "blockVolleyIncomingSpeed": 25.0,
+        "blockVolleyTime": 0.45,
+        "backhandStyle": "two",
+        "flatSpin": 90.0,
+        "topspinSpin": 330.0,
+        "sliceSpin": -230.0,
+        "lobSpin": 180.0,
+        "dropSpin": -260.0,
+        "smashSpin": 60.0,
+        "volleySpin": -80.0,
+        "flatClearance": 0.35,
+        "topspinClearance": 0.9,
+        "sliceClearance": 0.3,
+        "lobClearance": 4.0,
+        "dropClearance": 0.25,
+        "volleyClearance": 0.15
+    },
+    "movement": {
+        "maxSpeed": 6.2,
+        "acceleration": 9.5,
+        "deceleration": 13.0,
+        "turnPenalty": 0.55,
+        "joystickDeadZone": 0.12,
+        "recoverySpeedFactor": 0.55,
+        "recoveryDelay": 0.35,
+        "balanceDrainOnTurn": 0.6,
+        "balanceRecoveryPerSecond": 0.9,
+        "minBalance": 0.35
+    },
+    "serve": {
+        "tossApexHeight": 3.05,
+        "idealContactBeforeApex": -0.03,
+        "contactWindow": 0.12,
+        "maxGestureAfterToss": 1.6,
+        "flatSpin": 50.0,
+        "topspinSpin": 420.0,
+        "sliceSpin": -300.0,
+        "flatClearance": 0.12,
+        "topspinClearance": 0.55,
+        "sliceClearance": 0.25,
+        "secondServePowerCap": 0.82
+    },
+    "racket": {
+        "apparentRestitution": 0.42,
+        "offCentreRestitutionLoss": 0.35,
+        "spinTransfer": 0.55
+    }
+}

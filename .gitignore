@@ -1,0 +1,40 @@
+# --- lista de permissão: só o que é o jogo e as ferramentas vai para o GitHub ---
+/*
+!/.gitignore
+!/README.md
+!/PLANO_CONTROLES.md
+!/PROCESSAR_VIDEOS.bat
+!/TenisAAA/
+!/tools/
+!/docs/
+!/jogador_tripo_rig/
+!/estadio_aaa/
+!/videos_golpes/
+
+# Unity (gerado automaticamente)
+/TenisAAA/[Ll]ibrary/
+/TenisAAA/[Tt]emp/
+/TenisAAA/[Ll]ogs/
+/TenisAAA/[Oo]bj/
+/TenisAAA/[Bb]uild/
+/TenisAAA/[Bb]uilds/
+/TenisAAA/[Uu]ser[Ss]ettings/
+/TenisAAA/*.csproj
+/TenisAAA/*.sln
+/TenisAAA/.vs/
+
+# vídeos de referência de terceiros e arquivos de trabalho NÃO vão para o repositório público
+/videos_golpes/*
+!/videos_golpes/COMO_GRAVAR.txt
+!/videos_golpes/ajustes.json
+/estadio_aaa/*
+!/estadio_aaa/estadio_aaa.blend
+*.blend1
+__pycache__/
+*.mp4
+*.mov
+*.bak
+/TenisAAA/.vscode/
+/TenisAAA/*.slnx
+*.log
+*.log.meta

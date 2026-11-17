@@ -1,0 +1,6 @@
+{
+  "name": "Tenis.Editor",
+  "references": ["Tenis.Core", "Tenis.Game"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}

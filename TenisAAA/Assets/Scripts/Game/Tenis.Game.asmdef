@@ -1,0 +1,6 @@
+{
+  "name": "Tenis.Game",
+  "rootNamespace": "Tenis.Game",
+  "references": ["Tenis.Core"],
+  "autoReferenced": true
+}

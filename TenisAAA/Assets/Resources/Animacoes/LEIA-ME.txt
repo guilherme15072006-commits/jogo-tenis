@@ -1,0 +1,17 @@
+COMO COLOCAR ANIMAÇÕES CAPTURADAS (DeepMotion, Mixamo, mocap)
+
+1. Exporte cada animação como FBX (Mixamo: "FBX for Unity", "Without Skin", 30 fps).
+2. Coloque o arquivo nesta pasta com um destes nomes (o início do nome basta):
+   espera        posição de espera (loop)
+   corrida       corrida (loop)
+   split         split-step
+   forehand      forehand com topspin
+   backhand2     backhand de duas mãos   (ou backhand1 = uma mão)
+   slice         slice
+   voleio_fh     voleio de direita
+   voleio_bh     voleio de esquerda
+   smash         smash
+   saque         saque completo (lançamento → contato → finalização)
+3. Informe em contatos.json o segundo exato em que a raquete toca a bola em cada clipe.
+   O jogo acelera/desacelera a preparação para esse quadro coincidir com a chegada real da bola.
+Golpe sem arquivo continua usando a animação gerada por código.
