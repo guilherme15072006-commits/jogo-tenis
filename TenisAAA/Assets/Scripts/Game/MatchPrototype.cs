@@ -23,7 +23,7 @@ namespace Tenis.Game
         System.Action<Vec3, AthleteAnimation> _me, _ai;   // rigged Tripo character if present, else the procedural one
         Transform _ballT, _shadowT; LineRenderer _aimLine, _aimEllipse;
         Camera _cam; Material _baseMat;
-        int _msgShown;
+        int _msgShown; bool _mobile;
 
         bool _manual; float _manualDt = -1;
         public MatchEngine Engine => _eng;
@@ -33,7 +33,14 @@ namespace Tenis.Game
 
         void Init(ulong seed)
         {
-            Application.targetFrameRate = 60;
+            // in the browser a fixed target frame rate uses setTimeout and stutters; -1 = the screen's own refresh (smooth)
+            Application.targetFrameRate = Application.platform == RuntimePlatform.WebGLPlayer ? -1 : 60;
+            _mobile = Application.isMobilePlatform;
+            if (_mobile)
+            {   // phones: lighter shadows and no MSAA so the frame rate stays steady
+                QualitySettings.antiAliasing = 0; QualitySettings.shadowResolution = ShadowResolution.Low;
+                QualitySettings.shadowCascades = 1; QualitySettings.shadows = ShadowQuality.HardOnly;
+            }
             _cfg = ConfigLoader.Load();
             _eng = new MatchEngine(_cfg, new AthleteProfile(), new AthleteProfile { backhand = BackhandStyle.OneHanded }, seed);
             _clock = gameObject.AddComponent<GameClock>();
@@ -157,7 +164,7 @@ namespace Tenis.Game
             arena.transform.position += new Vector3(-wb.center.x, -wb.min.y, -wb.center.z);
             foreach (var r in arena.GetComponentsInChildren<Renderer>())
             {
-                r.shadowCastingMode = r.name.StartsWith("Assentos") ? UnityEngine.Rendering.ShadowCastingMode.Off : UnityEngine.Rendering.ShadowCastingMode.On;
+                r.shadowCastingMode = _mobile || r.name.StartsWith("Assentos") ?UnityEngine.Rendering.ShadowCastingMode.Off : UnityEngine.Rendering.ShadowCastingMode.On;
                 foreach (var m in r.sharedMaterials)
                 {
                     if (m == null) continue;
@@ -177,7 +184,7 @@ namespace Tenis.Game
             if (_cam != null) _cam.clearFlags = CameraClearFlags.Skybox;
             var sun = FindAnyObjectByType<Light>();
             if (sun != null) { sun.intensity = 1.15f; sun.color = new Color(1f, 0.96f, 0.9f); sun.shadowStrength = 0.85f; RenderSettings.sun = sun; }
-            QualitySettings.shadowDistance = 120;
+            QualitySettings.shadowDistance = _mobile ? 45 : 120;
             return true;
         }
 
@@ -230,6 +237,21 @@ namespace Tenis.Game
             sb.AppendLine($"<b>IA</b>      {s.sets[1]}  {s.games[1]}  {(s.inTiebreak ? s.points[1].ToString() : s.PointText(1))}{(s.server == 1 ? "  •" : "")}");
             GUI.Box(new Rect(10, 10, fs * 14, fs * 3.2f), GUIContent.none);
             GUI.Label(new Rect(18, 14, fs * 14, fs * 3), sb.ToString(), st);
+            if (_mobile)
+            {   // phone: only the score, the latest call ("Fora!", "Saque 2"…) and a hint for the swing side
+                var big = new GUIStyle(st) { alignment = TextAnchor.UpperCenter, fontSize = (int)(fs * 1.15f) };
+                if (_eng.messages.Count > 0) GUI.Label(new Rect(Screen.width * 0.25f, 12, Screen.width * 0.5f, fs * 2), "<b>" + _eng.messages[_eng.messages.Count - 1].text + "</b>", big);
+                if (!_input.GestureInProgress)
+                {
+                    var hint = new GUIStyle(st) { alignment = TextAnchor.LowerCenter, fontSize = (int)(fs * 0.8f) };
+                    GUI.color = new Color(1, 1, 1, 0.45f);
+                    GUI.Label(new Rect(Screen.width * 0.55f, Screen.height - fs * 2.6f, Screen.width * 0.4f, fs * 2), "deslize aqui para bater", hint);
+                    GUI.color = Color.white;
+                }
+                if (_eng.phase == MatchEngine.Phase.MatchOver)
+                    GUI.Label(new Rect(Screen.width / 2f - fs * 6, Screen.height / 2f, fs * 14, fs * 2), s.winner == 0 ? "<b>VITÓRIA!</b>" : "<b>DERROTA</b>", st);
+                return;
+            }
             var info = new StringBuilder();
             for (int i = Mathf.Max(0, _eng.messages.Count - 3); i < _eng.messages.Count; i++) info.AppendLine(_eng.messages[i].text);
             if (_eng.lastShot.contact || _eng.lastShot.timing.grade == TimingGrade.Fail) info.AppendLine("golpe: " + _eng.lastShot.Describe());

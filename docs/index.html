@@ -6,8 +6,17 @@
     <title>Unity Web Player | Jogo de Tênis</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+  <style>
+      html,body{margin:0;height:100%;overflow:hidden;background:#000;overscroll-behavior:none}
+      #unity-canvas{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+      #girar{display:none;position:fixed;inset:0;z-index:9;background:#0b1a12;color:#fff;font:600 22px system-ui,sans-serif;
+             align-items:center;justify-content:center;text-align:center;padding:24px}
+      @media (orientation:portrait){ body.mobile #girar{display:flex} }
+      body.mobile #unity-footer{display:none}
+    </style>
   </head>
   <body>
+    <div id="girar">Gire o celular para jogar deitado 📱↻</div>
     <div id="unity-container" class="unity-desktop">
       <div id="unity-fullscreen-container">
         <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
@@ -110,7 +119,7 @@
 
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+        config.devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.25);
 
 
       } else {
@@ -145,6 +154,17 @@
 
       document.body.appendChild(script);
 
+    
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        document.body.classList.add('mobile');
+        const goFull = () => {
+          const el = document.documentElement;
+          const req = el.requestFullscreen || el.webkitRequestFullscreen;
+          if (req && !document.fullscreenElement) { try { const p = req.call(el); if (p && p.then) p.then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {}); } catch (e) {} }
+        };
+        document.addEventListener('touchend', goFull, { passive: true });
+        document.addEventListener('gesturestart', e => e.preventDefault());
+      }
     </script>
   </body>
 </html>

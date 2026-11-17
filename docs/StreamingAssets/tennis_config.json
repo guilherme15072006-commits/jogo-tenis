@@ -119,10 +119,10 @@
     },
     "movement": {
         "maxSpeed": 6.2,
-        "acceleration": 9.5,
+        "acceleration": 12.0,
         "deceleration": 13.0,
-        "turnPenalty": 0.55,
-        "joystickDeadZone": 0.12,
+        "turnPenalty": 0.7,
+        "joystickDeadZone": 0.08,
         "recoverySpeedFactor": 0.55,
         "recoveryDelay": 0.35,
         "balanceDrainOnTurn": 0.6,

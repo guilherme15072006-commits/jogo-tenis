@@ -44,7 +44,45 @@ public static class BuildWebGL
             target = BuildTarget.WebGL,
             options = BuildOptions.None
         });
+        if (report.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded) PatchForPhones(Path.Combine(outDir, "index.html"));
         Debug.Log($"[BuildWebGL] resultado={report.summary.result} tamanho={report.summary.totalSize / (1024 * 1024)} MB erros={report.summary.totalErrors} → {outDir}");
         if (report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded) EditorApplication.Exit(1);
+    }
+
+    /// <summary>Phone tweaks on Unity's default page: lower render resolution (big FPS gain), no browser
+    /// scroll/zoom stealing the thumbs, full screen + landscape lock on the first touch, "turn the phone" overlay.</summary>
+    static void PatchForPhones(string indexPath)
+    {
+        string html = File.ReadAllText(indexPath);
+        html = html.Replace("// config.devicePixelRatio = 1;", "config.devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.25);");
+        const string css = @"<style>
+      html,body{margin:0;height:100%;overflow:hidden;background:#000;overscroll-behavior:none}
+      #unity-canvas{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+      #girar{display:none;position:fixed;inset:0;z-index:9;background:#0b1a12;color:#fff;font:600 22px system-ui,sans-serif;
+             align-items:center;justify-content:center;text-align:center;padding:24px}
+      @media (orientation:portrait){ body.mobile #girar{display:flex} }
+      body.mobile #unity-footer{display:none}
+    </style>";
+        const string overlay = "<div id=\"girar\">Gire o celular para jogar deitado 📱↻</div>";
+        const string js = @"
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        document.body.classList.add('mobile');
+        const goFull = () => {
+          const el = document.documentElement;
+          const req = el.requestFullscreen || el.webkitRequestFullscreen;
+          if (req && !document.fullscreenElement) { try { const p = req.call(el); if (p && p.then) p.then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {}); } catch (e) {} }
+        };
+        document.addEventListener('touchend', goFull, { passive: true });
+        document.addEventListener('gesturestart', e => e.preventDefault());
+      }
+    </script>";
+        if (!html.Contains("id=\"girar\""))
+        {
+            html = html.Replace("</head>", css + "\n  </head>");
+            html = html.Replace("<body>", "<body>\n    " + overlay);
+            int last = html.LastIndexOf("</script>");
+            if (last >= 0) html = html.Substring(0, last) + js + html.Substring(last + "</script>".Length);
+        }
+        File.WriteAllText(indexPath, html);
     }
 }

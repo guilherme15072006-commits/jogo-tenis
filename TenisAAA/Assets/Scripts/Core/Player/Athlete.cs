@@ -98,7 +98,7 @@ namespace Tenis.Core
             bool accelerating = desiredVel.Length > v.Length - 1e-6;
             double rate = accelerating ? _m.acceleration : _m.deceleration;
             // progressive acceleration: slower pick-up from standstill, full rate once moving
-            if (accelerating) rate *= MathD.Lerp(0.55, 1.0, MathD.Clamp01(speed / 2.0));
+            if (accelerating) rate *= MathD.Lerp(0.75, 1.0, MathD.Clamp01(speed / 2.0));
             double maxDv = rate * dt;
             if (dv.Length > maxDv) dv = dv.Normalized * maxDv;
             v += dv;

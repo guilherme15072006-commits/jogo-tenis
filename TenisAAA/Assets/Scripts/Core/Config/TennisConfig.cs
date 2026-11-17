@@ -162,10 +162,10 @@ namespace Tenis.Core
     public class MovementConfig
     {
         public double maxSpeed = 6.2;                 // m/s
-        public double acceleration = 9.5;             // m/s²
+        public double acceleration = 12.0;            // m/s²
         public double deceleration = 10.5;            // m/s² (braking takes ~0.5 s from a sprint)
-        public double turnPenalty = 0.55;             // speed fraction kept on a 180° reversal (inertia)
-        public double joystickDeadZone = 0.12;
+        public double turnPenalty = 0.7;              // speed fraction kept on a 180° reversal (inertia)
+        public double joystickDeadZone = 0.08;
         public double recoverySpeedFactor = 0.55;     // fraction of max speed while drifting back on release
         public double recoveryDelay = 0.35;           // s after release before the recovery starts
         public double balanceDrainOnTurn = 0.6;       // per 180° turn at full speed
